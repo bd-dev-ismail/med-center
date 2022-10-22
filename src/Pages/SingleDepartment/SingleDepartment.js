@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useLoaderData } from 'react-router-dom';
 import './SingleDepartment.css';
@@ -7,39 +7,45 @@ import "react-calendar/dist/Calendar.css";
 const SingleDepartment = () => {
   const [value, onChange] = useState(new Date());
     const data = useLoaderData();
+
     const {name, image, desc} = data;
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
     return (
       <div>
         <div
-          className="p-5 text-center bg-dark overlay"
+          className="p-5 text-center bg-dark overlay "
           style={{
             backgroundImage: ` linear-gradient(to right, rgba(19, 59, 136, 0.4), rgba(19, 59, 136, 0.4)), url(${image})`,
-            height: "100vh",
+            height: "32rem",
+
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
           }}
         ></div>
-        <div className="hero-text-2 container">
-          <Row xs={1} md={2}>
-            <Col className="d-flex align-items-center">
+        <div
+          className="hero-text-2 container"
+          
+        >
+          <Row xs={1} md={1} lg={2}>
+            <Col className="d-flex align-items-center text-dark">
               {" "}
               <div className="d-flex flex-column align-items-start">
                 <h1 className="display-1 " style={{ fontWeight: "bold" }}>
                   {name}
                 </h1>
-                <p className="text-start">{desc}</p>
+                <p className="text-start">{desc.slice(0, 200)}</p>
               </div>
             </Col>
-            <Col>
-              <div
-                style={{
-                  backgroundColor: "#ffffff9c",
-                  borderRadius: "20px",
-                  borderTop: "20px solid #126FE6",
-                }}
-                className="rounded-lg p-5"
-              >
+            <Col
+              style={{
+                border: "5px solid #126FE6",
+                borderRadius: '20px'
+              }}
+            >
+              <div className=" p-3 ">
                 <div className="info">
                   <h3 style={{ color: "#133B88" }}>See Available Doctors</h3>
                   <p className="text-dark">
@@ -48,10 +54,6 @@ const SingleDepartment = () => {
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-dark">
-                    Service Name:{" "}
-                    <span style={{ color: "#133B88" }}>{name}</span>
-                  </h3>
                   <h5 className="mt-3" style={{ color: "#133B88" }}>
                     Chosse Appointment Date:
                   </h5>

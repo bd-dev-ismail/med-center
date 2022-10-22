@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import './Header.css'
 const Header = () => {
@@ -50,13 +51,12 @@ const Header = () => {
               <Nav.Link href="#pricing">Contact Us</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
-                {" "}
-                <Button variant="warning">LogIn</Button>{" "}
-              </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              <Link to="/login">
+                <Button variant="warning" className="me-3">LogIn</Button>{" "}
+              </Link>
+              <Link to="/signup">
                 <Button variant="outline-warning">SignUp</Button>{" "}
-              </Nav.Link>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

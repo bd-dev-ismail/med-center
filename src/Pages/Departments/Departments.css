@@ -3,3 +3,6 @@
     border-radius: 10px;
     cursor: pointer;
 }
+#custom-col a {
+    text-decoration: none;
+}

@@ -9,18 +9,18 @@ const Departments = ({ department }) => {
   return (
     <>
       {Array.from({ length: 1 }).map((_, idx) => (
-        <Col>
-          <Card
-            style={{ height: "25rem", width: "350px", color: "#133B88" }}
-            id="custom-card"
-          >
-            <Card.Img variant="top" style={{ height: "200px" }} src={image} />
-            <Card.Body>
-              <Card.Title>{name}</Card.Title>
-              <Card.Text className="text-black">
-                {desc ? desc.slice(0, 100) : "No Desc Found"}
-              </Card.Text>
-              <Link to={`/department/${id}`}>
+        <Col id="custom-col">
+          <Link to={`/department/${id}`}>
+            <Card
+              style={{ height: "25rem", width: "350px", color: "#133B88" }}
+              id="custom-card"
+            >
+              <Card.Img variant="top" style={{ height: "200px" }} src={image} />
+              <Card.Body>
+                <Card.Title>{name}</Card.Title>
+                <Card.Text className="text-black">
+                  {desc ? desc.slice(0, 100) : "No Desc Found"}
+                </Card.Text>
                 <Button
                   variant="warning"
                   className="w-100"
@@ -28,9 +28,9 @@ const Departments = ({ department }) => {
                 >
                   Check Schedule
                 </Button>{" "}
-              </Link>
-            </Card.Body>
-          </Card>
+              </Card.Body>
+            </Card>
+          </Link>
         </Col>
       ))}
     </>

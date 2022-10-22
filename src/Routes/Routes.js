@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
+import DoctorsAndMap from "../Pages/DoctorsAndMap/DoctorsAndMap";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import LogIn from "../Pages/LogIn/LogIn";
@@ -30,7 +31,9 @@ const router = createBrowserRouter([
         element: <SingleDepartment></SingleDepartment>,
         loader: async ({ params }) =>
           fetch(`http://localhost:5000/department/${params.id}`),
-      },
+      },{
+        path: '/doctors', element: <DoctorsAndMap></DoctorsAndMap>
+      }
     ],
   },
 ]);
