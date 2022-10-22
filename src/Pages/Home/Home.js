@@ -24,6 +24,7 @@ const Home = () => {
               <h1 className="display-1" style={{ fontWeight: "bold" }}>
                 Professional Medical Care for Your Entire Family
               </h1>
+              {/* go to support session & fix it */}
               <Button variant="warning">Check Schedule</Button>
             </div>
           </div>
