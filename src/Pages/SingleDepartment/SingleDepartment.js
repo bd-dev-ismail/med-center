@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import './SingleDepartment.css';
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -8,7 +8,7 @@ const SingleDepartment = () => {
   const [value, onChange] = useState(new Date());
     const data = useLoaderData();
 
-    const {name, image, desc} = data;
+    const {name, image, desc, id} = data;
     useEffect(() => {
       window.scrollTo(0, 0);
     }, []);
@@ -25,10 +25,7 @@ const SingleDepartment = () => {
             backgroundSize: "cover",
           }}
         ></div>
-        <div
-          className="hero-text-2 container"
-          
-        >
+        <div className="hero-text-2 container">
           <Row xs={1} md={1} lg={2}>
             <Col className="d-flex align-items-center text-dark">
               {" "}
@@ -42,7 +39,7 @@ const SingleDepartment = () => {
             <Col
               style={{
                 border: "5px solid #126FE6",
-                borderRadius: '20px'
+                borderRadius: "20px",
               }}
             >
               <div className=" p-3 ">
@@ -60,9 +57,11 @@ const SingleDepartment = () => {
                   <div className="d-flex align-items-center justify-content-center">
                     <Calendar onChange={onChange} value={value}></Calendar>
                   </div>
-                  <Button variant="warning" className="my-3">
-                    Find Doctors
-                  </Button>
+                  <Link to={`/doctor/${id}`}>
+                    <Button variant="warning" className="my-3">
+                      Find Doctors
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </Col>

@@ -31,9 +31,12 @@ const router = createBrowserRouter([
         element: <SingleDepartment></SingleDepartment>,
         loader: async ({ params }) =>
           fetch(`http://localhost:5000/department/${params.id}`),
-      },{
-        path: '/doctors', element: <DoctorsAndMap></DoctorsAndMap>
-      }
+      },
+      {
+        path: "/doctor/:id",
+        loader: async ({ params }) => fetch(`http://localhost:5000/doctor/${params.id}`),
+        element: <DoctorsAndMap></DoctorsAndMap>,
+      },
     ],
   },
 ]);
