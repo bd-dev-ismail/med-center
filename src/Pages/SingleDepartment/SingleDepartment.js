@@ -6,7 +6,7 @@ const SingleDepartment = () => {
     console.log(data);
     return (
         <div>
-            
+            <h3>hello</h3>
         </div>
     );
 };
