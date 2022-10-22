@@ -1,0 +1,5 @@
+#custom-card:hover{
+    border: 4px solid #73a3ff;
+    border-radius: 10px;
+    cursor: pointer;
+}
