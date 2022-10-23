@@ -33,7 +33,10 @@ const Home = () => {
           <h3 className=" my-5 display-4 text-center">Departments</h3>
           <Row xs={1} md={2} lg={3} className="g-4 ">
             {departments.map((department, index) => (
-              <Departments key={index} department={department}></Departments>
+              <Departments
+                key={index.toString()}
+                department={department}
+              ></Departments>
             ))}
           </Row>
         </div>

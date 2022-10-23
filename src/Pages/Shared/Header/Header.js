@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Image } from 'react-bootstrap';
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import './Header.css'
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handalLogOut = ()=>{
+    logOut()
+    .then(()=>{
+      navigate('/')
+    })
+    .catch((error)=>console.log(error))
+  }
     return (
       <Navbar
         collapseOnSelect
@@ -67,16 +77,30 @@ const Header = () => {
                   Cotnatct Us
                 </Link>
               </Nav.Link>
+              <p>{user?.displayName}</p>
             </Nav>
             <Nav>
-              <Link to="/login">
-                <Button variant="warning" className="me-3">
-                  LogIn
-                </Button>{" "}
-              </Link>
-              <Link to="/signup">
-                <Button variant="outline-warning">SignUp</Button>{" "}
-              </Link>
+              {user?.email ? (
+                <>
+                  <h3 style={{ color: "#435F86", marginRight: '5px' }}>
+                    {user?.displayName ? user?.displayName : user?.email}
+                  </h3>
+                  <Button onClick={handalLogOut} variant="warning">
+                    LogOut
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="warning" className="me-3">
+                      LogIn
+                    </Button>{" "}
+                  </Link>
+                  <Link to="/signup">
+                    <Button variant="outline-warning">SignUp</Button>{" "}
+                  </Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

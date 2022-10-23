@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useContext } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FaFacebook, FaGoogle, } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 const SignUp = () => {
+  const [error, setError] = useState('');
+  const {signup} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handalSignUp = (e) =>{
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confrimPassword = form.confrimPassword.value;
+    console.log(name, email, password, confrimPassword);
+    if(password !== confrimPassword){
+      return setError('Password not Matched!')
+    }
+    signup(email, password)
+    .then(result=>{
+      const user = result.user;
+      form.reset();
+      setError('');
+      navigate('/')
+      console.log(user);
+    })
+    .catch(error=> setError(error.message));
+  }
     return (
       <div className="container d-flex flex-column align-items-center justify-content-center my-5">
         <div
@@ -14,10 +40,11 @@ const SignUp = () => {
           className="shadow shadow-lg"
         >
           <h2 className="px-5 pt-5 font-weight-bold">Create an Account</h2>
-          <Form className="px-5 py-3">
+          <Form onSubmit={handalSignUp} className="px-5 py-3">
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Your Name</Form.Label>
               <Form.Control
+                required
                 type="text"
                 name="name"
                 placeholder="Enter Your Name"
@@ -26,6 +53,7 @@ const SignUp = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
+                required
                 type="email"
                 name="email"
                 placeholder="Enter email"
@@ -35,6 +63,7 @@ const SignUp = () => {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
+                required
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -43,16 +72,15 @@ const SignUp = () => {
             <Form.Group className="mb-3" controlId="formBasicConfrim">
               <Form.Label>Confrim Password</Form.Label>
               <Form.Control
+                required
                 type="password"
-                name="confrim-password"
+                name="confrimPassword"
                 placeholder="Confrim Password"
               />
             </Form.Group>
-            <Form.Text className="text-muted">
-              Ekane user k error messeage deakbo !!
-            </Form.Text>
+            <Form.Text className="text-danger">{error}</Form.Text>
             <div className="text-center mt-4 mb-0">
-              <Button variant="warning" type="submit">
+              <Button style={{ width: "100%" }} variant="warning" type="submit">
                 Create an Account
               </Button>
             </div>
