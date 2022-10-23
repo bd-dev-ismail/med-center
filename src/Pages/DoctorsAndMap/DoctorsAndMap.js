@@ -1,56 +1,23 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useLoaderData } from 'react-router-dom';
-
+import DoctorDetails from '../DoctorDetails/DoctorDetails';
+import GoogleMap from '../Map/GoogleMap';
+import './DoctorsAndMap.css';
 const DoctorsAndMap = () => {
     const data = useLoaderData();
-    console.log(data);
     return (
       <div>
         <Container>
+          <h3 className="my-5">Available Doctors</h3>
           <Row className="g-4">
-            <Col xs={12} lg={8} className="mb-4">
-              <Row>
-                <Col xs={12} lg={4}>
-                  <img
-                    style={{ width: "270px", height: "188px" }}
-                    src="https://thumbs.dreamstime.com/b/random-word-concept-cubes-171151178.jpg"
-                    alt=""
-                  />
-                </Col>
-                <Col xs={12} lg={8}>
-                  <h3>This is Random Title</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Velit voluptates, tempora soluta laborum officia vitae
-                    officiis totam rem ab quibusdam sed corrupti consequuntur
-                    sapiente voluptas rerum cumque fugiat?
-                  </p>
-                </Col>
-              </Row>
-            </Col>
-            <Col xs={12} lg={8}>
-              <Row>
-                <Col xs={12} lg={4}>
-                  <img
-                    style={{ width: "270px", height: "188px" }}
-                    src="https://thumbs.dreamstime.com/b/random-word-concept-cubes-171151178.jpg"
-                    alt=""
-                  />
-                </Col>
-                <Col xs={12} lg={8}>
-                  <h3>This is Random Title</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Velit voluptates, tempora soluta laborum officia vitae
-                    officiis totam rem ab quibusdam sed corrupti consequuntur
-                    sapiente voluptas rerum cumque fugiat?
-                  </p>
-                </Col>
-              </Row>
-            </Col>
+            {data.map((doctor) => (
+              <DoctorDetails key={doctor._id} doctor={doctor}></DoctorDetails>
+            ))}
             <Col xs={12} lg={4}>
-              <div>This is Map</div>
+              <div id="map">
+                <GoogleMap></GoogleMap>
+              </div>
             </Col>
           </Row>
         </Container>

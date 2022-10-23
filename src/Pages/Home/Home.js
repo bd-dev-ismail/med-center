@@ -30,7 +30,7 @@ const Home = () => {
           </div>
         </header>
         <div className="mb-4 container mx-0  mx-md-auto med-card">
-          <h3 className=" my-5 display-4">Departments</h3>
+          <h3 className=" my-5 display-4 text-center">Departments</h3>
           <Row xs={1} md={2} lg={3} className="g-4 ">
             {departments.map((department, index) => (
               <Departments key={index} department={department}></Departments>
