@@ -9,6 +9,7 @@ import Home from "../Pages/Home/Home";
 import LogIn from "../Pages/LogIn/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import SingleDepartment from "../Pages/SingleDepartment/SingleDepartment";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -37,18 +38,26 @@ const router = createBrowserRouter([
       },
       {
         path: "/doctor/:id",
-        loader: async ({ params }) => fetch(`https://med-center-server.vercel.app/doctor/${params.id}`),
-        element: <DoctorsAndMap></DoctorsAndMap>,
+        loader: async ({ params }) =>
+          fetch(`https://med-center-server.vercel.app/doctor/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <DoctorsAndMap></DoctorsAndMap>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/alldoctors', element: <AllDoctors></AllDoctors>
+        path: "/alldoctors",
+        element: <AllDoctors></AllDoctors>,
       },
       {
-        path: '/blog', element: <Blogs></Blogs>
+        path: "/blog",
+        element: <Blogs></Blogs>,
       },
       {
-        path: '/contact', element: <ContactUs></ContactUs>
-      }
+        path: "/contact",
+        element: <ContactUs></ContactUs>,
+      },
     ],
   },
 ]);

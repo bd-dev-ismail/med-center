@@ -6,26 +6,31 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [loader, setLoader] = useState(true);
     //signup with email & password
     const signup = (email, password)=>{
+        setLoader(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
     //login With email & password
     const login = (email, password) =>{
+        setLoader(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
     //logour
     const logOut = ()=>{
+        setLoader(true);
         return signOut(auth);
     }
     //onauthstatechange
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser=>{
             setUser(currentUser);
+            setLoader(false)
         })
         return ()=> unsubscribe();
     },[])
-    const authInfo = { user, signup, login, logOut };
+    const authInfo = { user, loader,signup, login, logOut };
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

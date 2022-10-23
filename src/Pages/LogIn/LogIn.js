@@ -4,12 +4,15 @@ import { useState } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 const LogIn = () => {
   const [error, setError] = useState('');
   const {login} = useContext(AuthContext);
+  const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const handalLogin = (e)=>{
       e.preventDefault();
       const form = e.target;
@@ -21,7 +24,8 @@ const LogIn = () => {
         const user = result.user;
         setError('');
         form.reset();
-        navigate('/');
+        Swal.fire("Congress!", "LogIn Successfully!", "success");
+        navigate(from, {replace: true});
         console.log(user)
       })
       .catch(error => setError(error.message));

@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import './SingleDepartment.css';
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import Swal from 'sweetalert2';
+import { useContext } from 'react';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 const SingleDepartment = () => {
   const [value, onChange] = useState(new Date());
     const data = useLoaderData();
-
+  const {user} = useContext(AuthContext);
+  const navigate = useNavigate();
     const {name, image, desc, id} = data;
     useEffect(() => {
       window.scrollTo(0, 0);
     }, []);
+    // const handalFindDoctor = ()=>{
+    //   navigate(`/doctor/${id}`)
+    //   if(!user?.uid){
+    //     Swal.fire({
+    //       icon: "error",
+    //       title: "You Need To Login Frist!",
+    //       text: "Please LogIn Your Account or Create an account",
+    //     });
+    //   }
+      
+    // }
     return (
       <>
         <div>
@@ -58,6 +73,7 @@ const SingleDepartment = () => {
                     <div className="d-flex align-items-center justify-content-center">
                       <Calendar onChange={onChange} value={value}></Calendar>
                     </div>
+
                     <Link to={`/doctor/${id}`}>
                       <Button variant="warning" className="my-3">
                         Find Doctors
