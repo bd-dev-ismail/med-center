@@ -17,42 +17,62 @@ const Header = () => {
         sticky="top"
       >
         <Container>
-          <Navbar.Brand href="#home">
-            <Image src={logo} />
+          <Navbar.Brand>
+            <Link to="/">
+              <Image src={logo} />
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto nav-custom-med">
               <NavDropdown title="Departments" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">
+                <Link to="/department/1" className="ps-4 text-decoration-none">
                   Neurology
-                </NavDropdown.Item>
+                </Link>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.2">
+                <Link to="/department/2" className="ps-4 text-decoration-none">
                   Gynecology
-                </NavDropdown.Item>
+                </Link>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.3">
+                <Link to="/department/3" className="ps-4 text-decoration-none">
                   Cardiology
-                </NavDropdown.Item>
+                </Link>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
+                <Link to="/department/4" className="ps-4 text-decoration-none">
                   Orthopedics
-                </NavDropdown.Item>
+                </Link>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.5">Surgery</NavDropdown.Item>
+                <Link to="/department/5" className="ps-4 text-decoration-none">
+                  Surgery
+                </Link>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.6">
+                <Link to="/department/5" className="ps-4 text-decoration-none">
                   Dermatology
-                </NavDropdown.Item>
+                </Link>
               </NavDropdown>
-              <Nav.Link href="#features">Doctors</Nav.Link>
-              <Nav.Link href="#pricing">Blogs</Nav.Link>
-              <Nav.Link href="#pricing">Contact Us</Nav.Link>
+              <Nav.Link>
+                <Link className="text-decoration-none" to="/alldoctors">
+                  Doctors
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                {" "}
+                <Link className="text-decoration-none" to="/blog">
+                  Blogs
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                {" "}
+                <Link className="text-decoration-none" to="/contact">
+                  Cotnatct Us
+                </Link>
+              </Nav.Link>
             </Nav>
             <Nav>
               <Link to="/login">
-                <Button variant="warning" className="me-3">LogIn</Button>{" "}
+                <Button variant="warning" className="me-3">
+                  LogIn
+                </Button>{" "}
               </Link>
               <Link to="/signup">
                 <Button variant="outline-warning">SignUp</Button>{" "}
