@@ -9,7 +9,8 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 const LogIn = () => {
   const [error, setError] = useState('');
-  const {login} = useContext(AuthContext);
+  const { login, singinWithGoogle, signinWithFacebook } =
+    useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -30,6 +31,24 @@ const LogIn = () => {
       })
       .catch(error => setError(error.message));
   }
+  const handalFacebook = ()=>{
+    signinWithFacebook()
+    .then(result =>{
+      const user = result.user;
+      navigate(from, {replace: true})
+      console.log(user);
+    })
+    .catch(error=>setError(error.message))
+  }
+  const handalGoogle = () => {
+    singinWithGoogle()
+      .then((result) => {
+        const user = result.user;
+         navigate(from, { replace: true });
+        console.log(user);
+      })
+      .catch((error) => setError(error.message));
+  };
     return (
       <div className="container d-flex flex-column align-items-center justify-content-center my-5">
         <div
@@ -63,11 +82,9 @@ const LogIn = () => {
             <div>
               <Link className="text-warning">Fotget Pasword?</Link>
             </div>
-            <Form.Text className="text-muted mt-2">
-              {error}
-            </Form.Text>
+            <Form.Text className="text-muted mt-2">{error}</Form.Text>
             <div className="text-center mt-4 mb-0">
-              <Button style={{width: '100%'}} variant="warning" type="submit">
+              <Button style={{ width: "100%" }} variant="warning" type="submit">
                 LogIn
               </Button>
             </div>
@@ -85,7 +102,7 @@ const LogIn = () => {
           <h3>Or</h3>
           <hr style={{ width: "250px" }} />
           <div className="mb-2 ">
-            <Button variant="dark" style={{ width: "350px" }}>
+            <Button onClick={handalFacebook} variant="dark" style={{ width: "350px" }}>
               {" "}
               <FaFacebook
                 style={{
@@ -97,7 +114,11 @@ const LogIn = () => {
             </Button>{" "}
           </div>
           <div>
-            <Button variant="outline-dark" style={{ width: "350px" }}>
+            <Button
+              onClick={handalGoogle}
+              variant="outline-dark"
+              style={{ width: "350px" }}
+            >
               <FaGoogle
                 style={{
                   marginRight: "10px",

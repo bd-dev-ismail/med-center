@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Departments from '../Departments/Departments';
 import Row from "react-bootstrap/Row";
 import './Home.css';
@@ -25,7 +25,9 @@ const Home = () => {
                 Professional Medical Care for Your Entire Family
               </h1>
               {/* go to support session & fix it */}
-              <Button variant="warning">Check Schedule</Button>
+              <Link to="/alldoctors">
+                <Button variant="warning">Find Doctor</Button>
+              </Link>
             </div>
           </div>
         </header>

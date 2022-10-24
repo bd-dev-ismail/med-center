@@ -77,7 +77,6 @@ const Header = () => {
                   Cotnatct Us
                 </Link>
               </Nav.Link>
-              <p>{user?.displayName}</p>
             </Nav>
             <Nav>
               {user?.email ? (

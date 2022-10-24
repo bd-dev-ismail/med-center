@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -8,7 +8,8 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 const SignUp = () => {
   const [error, setError] = useState('');
-  const {signup} = useContext(AuthContext);
+  const { signup, singinWithGoogle, signinWithFacebook } =
+    useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -19,20 +20,38 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
     const confrimPassword = form.confrimPassword.value;
-    console.log(name, email, password, confrimPassword);
     if(password !== confrimPassword){
       return setError('Password not Matched!')
     }
     signup(email, password)
     .then(result=>{
       const user = result.user;
+      navigate(from, { replace: true });
       form.reset();
       setError('');
       Swal.fire("Congress!", "Your Account Create Successfully!", "success");
-      navigate(from, { replace: true });
+      
       console.log(user);
     })
     .catch(error=> setError(error.message));
+  }
+  const handalFacebook = () => {
+    signinWithFacebook()
+      .then((result) => {
+        const user = result.user;
+        navigate(from, { replace: true });
+        console.log(user);
+      })
+      .catch((error) => setError(error.message));
+  };
+  const handalGoogle = () =>{
+      singinWithGoogle()
+      .then((result)=>{
+        const user = result.user;
+         navigate(from, { replace: true });
+        console.log(user);
+      })
+      .catch(error=>setError(error.message))
   }
     return (
       <div className="container d-flex flex-column align-items-center justify-content-center my-5">
@@ -102,7 +121,11 @@ const SignUp = () => {
           <h3>Or</h3>
           <hr style={{ width: "250px" }} />
           <div className="mb-2 ">
-            <Button variant="dark" style={{ width: "350px" }}>
+            <Button
+              onClick={handalFacebook}
+              variant="dark"
+              style={{ width: "350px" }}
+            >
               {" "}
               <FaFacebook
                 style={{
@@ -114,7 +137,11 @@ const SignUp = () => {
             </Button>{" "}
           </div>
           <div>
-            <Button variant="outline-dark" style={{ width: "350px" }}>
+            <Button
+              onClick={handalGoogle}
+              variant="outline-dark"
+              style={{ width: "350px" }}
+            >
               <FaGoogle
                 style={{
                   marginRight: "10px",
